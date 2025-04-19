@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Pribadi Peter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--dark-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 20px 0;
+        }
+        
+        .layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .blog-post {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .blog-image-1 {
+            background-image: url("/api/placeholder/800/400");
+        }
+        
+        .blog-image-2 {
+            background-image: url("/api/placeholder/800/400");
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-date {
+            color: #777;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .blog-date i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        .blog-post h2 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 26px;
+        }
+        
+        .blog-post p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .read-more:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .sidebar-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .sidebar-section h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .profile p {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.1);
+            background-color: #2980b9;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .categories-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .categories-list .count {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 12px;
+            border-radius: 20px;
+            padding: 2px 8px;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .upload-section h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+        
+        .upload-section p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .upload-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .upload-box {
+            height: 180px;
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: border 0.3s, box-shadow 0.3s;
+            background-color: #f9f9f9;
+        }
+        
+        .upload-box:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .upload-box input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .upload-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 40px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        
+        .upload-label {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .button-container {
+            text-align: center;
+        }
+        
+        .button {
+            background-color: var(--secondary-color);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #27ae60;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-info p {
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #3a506b;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            header {
+                padding: 40px 0;
+            }
+            
+            header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo"><i class="fas fa-pen-fancy"></i>Blog Peter</a>
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="#"><i class="fas fa-folder"></i> Kategori</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Tentang</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>Blog Pribadi Peter</h1>
+            <p>Berbagi pengalaman dan pengetahuan seputar teknologi cloud computing, AWS, dan pengembangan web</p>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="layout">
+                <!-- Blog Posts -->
+                <div class="blog-posts">
+                    <article class="blog-post">
+                        <div class="blog-image blog-image-1"></div>
+                        <div class="blog-content">
+                            <div class="blog-date">
+                                <i class="far fa-calendar-alt"></i> 19 April 2025
+                            </div>
+                            <h2>Memulai Perjalanan Cloud Computing</h2>
+                            <p>Cloud computing telah mengubah cara kita membangun dan men-deploy aplikasi. Dengan menggunakan layanan AWS seperti EC2, S3, dan lainnya, kita dapat dengan mudah mengelola infrastruktur tanpa perlu khawatir tentang perangkat keras fisik.</p>
+                            <p>Dalam posting blog pertama ini, saya akan berbagi pengalaman saya dalam menyiapkan blog ini menggunakan Amazon EC2 sebagai server dan Amazon S3 untuk penyimpanan.</p>
+                            <a href="#" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-post">
+                        <div class="blog-image blog-image-2"></div>
+                        <div class="blog-content">
+                            <div class="blog-date">
+                                <i class="far fa-calendar-alt"></i> 18 April 2025
+                            </div>
+                            <h2>Mengoptimalkan Aplikasi Web di AWS</h2>
+                            <p>Ada banyak cara untuk mengoptimalkan aplikasi web yang berjalan di AWS. Mulai dari pemilihan jenis instance yang tepat, menggunakan Auto Scaling Groups, hingga mengimplementasikan Content Delivery Network dengan Amazon CloudFront.</p>
+                            <p>Blog ini sendiri menggunakan instance EC2 sederhana, tetapi tetap dapat dioptimalkan lebih lanjut seiring dengan meningkatnya kebutuhan.</p>
+                            <a href="#" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <div class="profile">
+                            <div class="profile-image">
+                                <img src="/api/placeholder/300/300" alt="Peter">
+                            </div>
+                            <h4>Peter Tech</h4>
+                            <p>Cloud Engineer & Web Developer</p>
+                            <p>Seorang pengembang web dan enthusiast cloud computing yang berbagi pengetahuan tentang AWS dan teknologi web modern.</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Kategori</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">AWS Cloud <span class="count">5</span></a></li>
+                            <li><a href="#">EC2 & S3 <span class="count">3</span></a></li>
+                            <li><a href="#">Web Development <span class="count">7</span></a></li>
+                            <li><a href="#">DevOps <span class="count">2</span></a></li>
+                            <li><a href="#">Serverless <span class="count">4</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Postingan Terbaru</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">Memulai Perjalanan Cloud Computing</a></li>
+                            <li><a href="#">Mengoptimalkan Aplikasi Web di AWS</a></li>
+                            <li><a href="#">Tips Keamanan untuk Instans EC2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <h2>Galeri Foto</h2>
+                <p>Unggah hingga 3 foto JPEG yang akan disimpan di Amazon S3</p>
+                <div class="upload-container">
+                    <div class="upload-box" id="upload1">
+                        <input type="file" accept="image/jpeg" onchange="previewImage(this, 'preview1')">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <img id="preview1" src="" alt="Preview">
+                        <div class="upload-label" id="label1">Klik untuk mengunggah foto</div>
+                    </div>
+                    <div class="upload-box" id="upload2">
+                        <input type="file" accept="image/jpeg" onchange="previewImage(this, 'preview2')">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <img id="preview2" src="" alt="Preview">
+                        <div class="upload-label" id="label2">Klik untuk mengunggah foto</div>
+                    </div>
+                    <div class="upload-box" id="upload3">
+                        <input type="file" accept="image/jpeg" onchange="previewImage(this, 'preview3')">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <img id="preview3" src="" alt="Preview">
+                        <div class="upload-label" id="label3">Klik untuk mengunggah foto</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button class="button" onclick="uploadImages()"><i class="fas fa-upload"></i> Unggah Foto</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Tentang Blog</h3>
+                    <p>Blog Pribadi Peter adalah platform untuk berbagi pengetahuan dan pengalaman tentang cloud computing, AWS, dan pengembangan web.</p>
+                    <p>Dihosting di Amazon Web Services menggunakan EC2 dan S3.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Link Cepat</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Arsip Blog</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tentang Peter</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AWS Resources</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section contact-info">
+                    <h3>Kontak</h3>
+                    <p><i class="fas fa-envelope"></i> peter@example.com</p>
+                    <p><i class="fas fa-phone"></i> +62 123 456 789</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Blog Pribadi Peter. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const label = document.getElementById(previewId.replace('preview', 'label'));
+            const icon = input.previousElementSibling;
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    label.style.display = 'none';
+                    icon.style.display = 'none';
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        function uploadImages() {
+            // Hitung berapa gambar yang dipilih
+            const input1 = document.querySelector('#upload1 input');
+            const input2 = document.querySelector('#upload2 input');
+            const input3 = document.querySelector('#upload3 input');
+            
+            let count = 0;
+            if (input1.files.length > 0) count++;
+            if (input2.files.length > 0) count++;
+            if (input3.files.length > 0) count++;
+            
+            if (count === 0) {
+                alert('Silakan pilih minimal satu gambar untuk diunggah.');
+                return;
+            }
+            
+            // Dalam implementasi sesungguhnya, ini akan mengunggah file ke bucket S3
+            alert(`${count} gambar siap diunggah ke Amazon S3. Implementasi lengkap membutuhkan konfigurasi AWS SDK.`);
+        }
+    </script>
+</body>
+</html>
